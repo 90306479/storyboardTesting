@@ -12,8 +12,6 @@ class ViewController: UIViewController {
     var words:String = ""
     
     
-    @IBOutlet weak var wordsLabel: UILabel!
-    
     @IBOutlet weak var moodField: UITextField!
     
     override func viewDidLoad() {
@@ -26,21 +24,19 @@ class ViewController: UIViewController {
     @IBAction func buttonClick(_ sender: UIButton) {
         words = moodField.text!
 
-        wordsLabel.text = words
         
-        if words.uppercased() == "HAPPY" {
-            view.backgroundColor = .yellow
-        }
-        if words.uppercased() == "SAD" {
-            view.backgroundColor = .blue
-        }
-        if words.uppercased() == "HUNGRY" {
-            view.backgroundColor = .red
-        }
-//
-//        let vc = SecondViewController()
-//        present(vc, animated: true)
+        self.performSegue(withIdentifier: "MainToSecond", sender: self)
+
+   
+
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "MainToSecond"){
+            let displayVC = segue.destination as! SecondViewController
+            displayVC.recipeType = words
+        }
     }
     
 
